@@ -127,8 +127,17 @@ NODE_ENV=development
 > **MongoDB Atlas:** Replace `MONGODB_URI` with your Atlas connection string.
 
 ### 3. Seed the Database
+//run in command prompt
+```bash 
+node -e "require('dotenv').config(); const mongoose=require('mongoose'); const bcrypt=require('bcryptjs'); mongoose.connect('mongodb://127.0.0.1:27017/admission_mgmt').then(async()=>{ const col=mongoose.connection.db.collection('users'); for(const u of [{name:'Super Admin',email:'admin@edumerge.com',password:'Admin@123',role:'admin'},{name:'Admission Officer',email:'officer@edumerge.com',password:'Officer@123',role:'admission_officer'},{name:'Management User',email:'mgmt@edumerge.com',password:'Mgmt@123',role:'management'}]){const h=await bcrypt.hash(u.password,10);await col.updateOne({email:u.email},{$set:{name:u.name,email:u.email,password:h,role:u.role,isActive:true}},{upsert:true});console.log('Done:',u.email,u.password);} await mongoose.disconnect(); console.log('All users ready!');}).catch(console.error);"
+```
+You should see:
+```
+Done: admin@edumerge.com Admin@123
+Done: officer@edumerge.com Officer@123
+Done: mgmt@edumerge.com Mgmt@123
+All users ready!
 
-```bash
 node seed.js
 ```
 
