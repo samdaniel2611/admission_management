@@ -100,7 +100,7 @@ admission-mgmt/
 ### 1. Clone / Download the repo
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/samdaniel2611/admission_management
 cd admission-mgmt
 ```
 
